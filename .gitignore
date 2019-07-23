@@ -1,0 +1,5 @@
+/.DS_Store
+*.cpython-37.pyc
+/.idea/
+/__pycache__/
+*.DS_Store
