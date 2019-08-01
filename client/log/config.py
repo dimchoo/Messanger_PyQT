@@ -1,10 +1,9 @@
+import logging.handlers
 import os
 import sys
-import logging
-import logging.handlers
 
-BASE_LOG_DIR_PATH = os.path.abspath(os.path.join(__file__, '../../'))
-CLIENT_LOG_PATH = os.path.join(BASE_LOG_DIR_PATH, 'log_files/client_log/client.log')
+BASE_LOG_DIR_PATH = os.path.abspath(os.path.join(__file__, '../'))
+CLIENT_LOG_PATH = os.path.join(BASE_LOG_DIR_PATH, 'client.log')
 
 client_logger = logging.getLogger('client_logger')
 

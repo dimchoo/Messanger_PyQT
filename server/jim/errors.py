@@ -1,7 +1,7 @@
 """
 Возможные ошибки и собственные исключения
 """
-from jim.config import MAX_USERNAME_LEN, RESPONSE_CODE_LEN
+from server.jim.settings import MAX_USERNAME_LEN, RESPONSE_CODE_LEN
 
 
 class UsernameTooLongError(Exception):

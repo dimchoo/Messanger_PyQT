@@ -2,9 +2,11 @@
 # import os
 # sys.path.append(os.path.join(os.getcwd(), '..'))
 import unittest
-from server import presence_message_response
-from jim.config import *
+
+from server.jim.settings import *
+
 from client import get_time
+from server import presence_message_response
 
 
 class TestServerFunctions(unittest.TestCase):

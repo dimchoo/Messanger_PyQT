@@ -1,8 +1,9 @@
-import json
-from jim.config import COMMON_ENCODING, DEFAULT_BIND_IP, DEFAULT_SERVER_PORT
-from errors import IncorrectDataReceivedError, NonDictInputError
 import argparse
+import json
 import sys
+
+from client.jim.errors import IncorrectDataReceivedError, NonDictInputError
+from client.jim.settings import COMMON_ENCODING, DEFAULT_BIND_IP, DEFAULT_SERVER_PORT
 
 
 def write_bytes(dict_message):
@@ -50,17 +51,3 @@ def get_message(sock):
     :return: dict (Словарь сообщения)
     """
     return read_bytes(sock.recv(1024))
-
-
-def server_arg_parser():
-    """
-    Парсер аргументов коммандной строки
-    :return: str & int (ip-адрес и порт)
-    """
-    parser = argparse.ArgumentParser()
-    parser.add_argument('-p', default=DEFAULT_SERVER_PORT, type=int, nargs='?')
-    parser.add_argument('-a', default=DEFAULT_BIND_IP, nargs='?')
-    namespace = parser.parse_args(sys.argv[1:])
-    listen_address = namespace.a
-    listen_port = namespace.p
-    return listen_address, listen_port

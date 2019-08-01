@@ -3,7 +3,6 @@
 основанные на протоколе JIM.
 """
 import time
-import os
 
 # 1. Константа общей кодировки проекта:
 
@@ -15,6 +14,7 @@ COMMON_ENCODING = 'utf-8'
 DEFAULT_SERVER_ADDRESS = '127.0.0.1'
 DEFAULT_SERVER_PORT = 8888
 DEFAULT_BIND_IP = ''
+SERVER_DB = 'sqlite:///server_db.db3'
 
 
 # 3. Константы ключей для словарей и JSON-оъектов:

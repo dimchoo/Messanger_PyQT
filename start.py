@@ -1,10 +1,11 @@
-from sys import platform
 import os
 from subprocess import Popen
+from sys import platform
+
 import appscript
 
-SERVER_PATH = os.path.join(os.path.dirname(__file__), 'server.py')
-CLIENT_PATH = os.path.join(os.path.dirname(__file__), 'client.py')
+SERVER_PATH = os.path.join(os.path.dirname(__file__), 'server/server_script.py')
+CLIENT_PATH = os.path.join(os.path.dirname(__file__), 'client/client_script.py')
 CLIENT_COUNT = 2
 
 
@@ -20,13 +21,13 @@ def mac_starter():
                        '"kill"  - Завершить процессы сервера и клиентов\n'
                        '"quit"  - Выйти из этого скрипта\n'
                        '>>> ')
-        if choice == 'start'.lower():
+        if choice.lower() == 'start':
             terminal.do_script(f'python3 {SERVER_PATH}')
             for _ in range(CLIENT_COUNT):
                 terminal.do_script(f'python3 {CLIENT_PATH}')
-        elif choice == 'kill'.lower():
+        elif choice.lower() == 'kill':
             terminal.do_script('killall Terminal')
-        elif choice == 'quit'.lower():
+        elif choice.lower() == 'quit':
             print('Скрипт завершен.')
             return
         else:
@@ -46,15 +47,15 @@ def windows_starter():
                        '"kill"  - Завершить процессы сервера и клиентов\n'
                        '"quit"  - Выйти из этого скрипта\n'
                        '>>> ')
-        if choice == 'start'.lower():
+        if choice.lower() == 'start':
             processes.append(Popen('python server.py', creationflags=CREATE_NEW_CONSOLE))
             for _ in range(CLIENT_COUNT):
                 processes.append(Popen('python client.py', creationflags=CREATE_NEW_CONSOLE))
-        elif choice == 'kill'.lower():
+        elif choice.lower() == 'kill':
             while processes:
                 victim = processes.pop()
                 victim.kill()
-        elif choice == 'quit'.lower():
+        elif choice.lower() == 'quit':
             print('Скрипт завершен.')
             return
         else:
@@ -66,11 +67,11 @@ def linux_starter():
 
 
 try:
-    if platform == 'darwin'.lower():
+    if platform.lower() == 'darwin':
         mac_starter()
-    elif platform == 'windows'.lower() or 'win32'.lower():
+    elif platform.lower() == 'windows' or 'win32':
         windows_starter()
-    elif platform == 'linux' or 'linux2':
+    elif platform.lower() == 'linux' or 'linux2':
         pass
 except KeyboardInterrupt:
     print('\nСкрипт завершен.')
