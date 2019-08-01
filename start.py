@@ -4,8 +4,8 @@ from sys import platform
 
 import appscript
 
-SERVER_PATH = os.path.join(os.path.dirname(__file__), 'server.py')
-CLIENT_PATH = os.path.join(os.path.dirname(__file__), 'client.py')
+SERVER_PATH = os.path.join(os.path.dirname(__file__), 'server/server_script.py')
+CLIENT_PATH = os.path.join(os.path.dirname(__file__), 'client/client_script.py')
 CLIENT_COUNT = 2
 
 
