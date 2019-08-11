@@ -23,8 +23,8 @@ def mac_starter():
                        '>>> ')
         if choice.lower() == 'start':
             terminal.do_script(f'python3 {SERVER_PATH}')
-            for _ in range(CLIENT_COUNT):
-                terminal.do_script(f'python3 {CLIENT_PATH}')
+            for i in range(CLIENT_COUNT):
+                terminal.do_script(f'python3 {CLIENT_PATH} -n test{i + 1}')
         elif choice.lower() == 'kill':
             terminal.do_script('killall Terminal')
         elif choice.lower() == 'quit':
@@ -39,27 +39,34 @@ def windows_starter():
     Функция запуска мессенджера на Windows
     :return: None
     """
-    from subprocess import CREATE_NEW_CONSOLE
-    processes = []
+    import subprocess
+    process = []
+
     while True:
-        choice = input('Основные команды:\n'
-                       '"start" - Запустить процессы сервера и клиентов\n'
-                       '"kill"  - Завершить процессы сервера и клиентов\n'
-                       '"quit"  - Выйти из этого скрипта\n'
-                       '>>> ')
-        if choice.lower() == 'start':
-            processes.append(Popen('python server.py', creationflags=CREATE_NEW_CONSOLE))
-            for _ in range(CLIENT_COUNT):
-                processes.append(Popen('python client.py', creationflags=CREATE_NEW_CONSOLE))
-        elif choice.lower() == 'kill':
-            while processes:
-                victim = processes.pop()
-                victim.kill()
-        elif choice.lower() == 'quit':
-            print('Скрипт завершен.')
-            return
-        else:
-            print(f'Неизвестная команда: "{choice}"!')
+        action = input(
+            'Выберите действие: q - выход , s - запустить сервер, k - запустить клиенты x - закрыть все окна:')
+        if action == 'q':
+            break
+        elif action == 's':
+            # Запускаем сервер!
+            process.append(
+                subprocess.Popen(
+                    'python server.py',
+                    creationflags=subprocess.CREATE_NEW_CONSOLE))
+        elif action == 'k':
+            print('Убедитесь, что на сервере зарегистрировано необходимо количество клиентов с паролем 123.')
+            print('Первый запуск может быть достаточно долгим из-за генерации ключей!')
+            clients_count = int(
+                input('Введите количество тестовых клиентов для запуска: '))
+            # Запускаем клиентов:
+            for i in range(clients_count):
+                process.append(
+                    subprocess.Popen(
+                        f'python client.py -n test{i + 1} -p 123',
+                        creationflags=subprocess.CREATE_NEW_CONSOLE))
+        elif action == 'x':
+            while process:
+                process.pop().kill()
 
 
 def linux_starter():
