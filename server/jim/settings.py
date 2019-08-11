@@ -23,40 +23,58 @@ SERVER_DB = 'sqlite:///server_db.db3'
 ACCOUNT_NAME = 'account_name'
 # - Тип сообщения (str). Максимум 15 символов:
 ACTION = 'action'
+# - Добавить контакт
+ADD_CONTACT = 'add'
 # - Необязательное сообщение/уведомление:
-# ALERT = 'alert'
+ALERT = 'alert'
+# - Данные
+DATA = 'bin'
 # - Дата запроса:
-# DATE = 'date'
+DATE = 'date'
 # - Получатель сообщения:
 DESTINATION = 'destination'
 # - Кодировка:
-# ENCODING = 'encoding'
+ENCODING = 'encoding'
 # - Текст ошибки (str):
 ERROR = 'error'
 # - Выход:
 EXIT = 'exit'
 # - От кого собщение:
 FROM = 'from'
+# - Получение контактов
+GET_CONTACTS = 'get_contacts'
+# - Список данных
+LIST_INFO = 'data_list'
+# - Максимальная очередь подключений
+MAX_CONNECTIONS = 5
 # - Сообщение:
 MESSAGE = 'message'
 # - Текст сообщения:
 MESSAGE_TEXT = 'message_text'
 # - Пароль пользователя:
-# PASSWORD = 'password'
+PASSWORD = 'password'
+# - Публичный ключ
+PUBLIC_KEY = 'pubkey'
+# - Нуждается в публичном ключе
+PUBLIC_KEY_REQUEST = 'pubkey_need'
+# - Удалить контакт
+REMOVE_CONTACT = 'remove'
 # - Код ответа (int). 3 цифры:
 RESPONSE = 'response'
 # - Отправитель сообщения:
 SENDER = 'sender'
 # - Статус:
-# STATUS = 'status'
+STATUS = 'status'
 # - Время запроса:
 TIME = 'time'
 # - Кому отправить сообщение:
 TO = 'to'
 # - Тип:
-# TYPE = 'type'
+TYPE = 'type'
 # - Данные пользователя (dict):
 USER = 'user'
+# - Запрос пользователей
+USERS_REQUEST = 'get_users'
 
 
 # 4. Константы значений:
@@ -93,6 +111,7 @@ CONFLICT = 409
 OFFLINE = 410
 # 5xx — ошибка на стороне сервера:
 SERVER_ERROR = 500
+WRONG_AUTH_REQ = 511
 
 
 # 6. Константа кортежа со всеми кодами ответов:
@@ -110,7 +129,8 @@ RESPONSE_CODES = (
     NOT_FOUND,
     CONFLICT,
     OFFLINE,
-    SERVER_ERROR
+    SERVER_ERROR,
+    WRONG_AUTH_REQ
 )
 
 
@@ -130,9 +150,25 @@ RESPONSE_OK = {
     RESPONSE: OK
 }
 
+# Код 202:
+RESPONSE_ACCEPTED = {
+    RESPONSE: ACCEPTED,
+    LIST_INFO: None
+}
+
+# 205
+RESPONSE_205 = {
+    RESPONSE: 205
+}
+
 # Код 400:
 RESPONSE_WRONG_REQUEST = {
     RESPONSE: WRONG_REQUEST,
     ERROR: None
 }
 
+# Код 511
+RESPONSE_WRONG_AUTH_REQ = {
+    RESPONSE: WRONG_AUTH_REQ,
+    DATA: None
+}
